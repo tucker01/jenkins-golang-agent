@@ -37,10 +37,11 @@ RUN sudo useradd jenkins --shell /bin/bash --create-home \
   && echo 'ALL ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers \
   && echo 'jenkins:jenkins' | chpasswd
 
-# install wget and curl
+# install some basic utilities
 RUN apt-get -y update &&\
   sudo apt-get -y install wget &&\
-  sudo apt-get -y install curl
+  sudo apt-get -y install curl &&\
+  sudo apt-get -y install git
 
 # install golang
 RUN cd ${HOME} && wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
