@@ -41,7 +41,8 @@ RUN sudo useradd jenkins --shell /bin/bash --create-home \
 RUN apt-get -y update &&\
   sudo apt-get -y install wget &&\
   sudo apt-get -y install curl &&\
-  sudo apt-get -y install git
+  sudo apt-get -y install git &&\
+  sudo apt-get -y install python3.8
 
 # install golang
 RUN cd ${HOME} && wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
