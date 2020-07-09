@@ -42,7 +42,8 @@ RUN apt-get -y update &&\
   sudo apt-get -y install wget &&\
   sudo apt-get -y install curl &&\
   sudo apt-get -y install git &&\
-  sudo apt-get -y install python3.8
+  sudo apt-get -y install python3.8 &&\
+  sudo apt-get -y install python3-pip
 
 # install golang
 RUN cd ${HOME} && wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
@@ -54,6 +55,9 @@ USER jenkins
 ENV PATH="/usr/local/go/bin:${PATH}:/home/jenkins/bin"
 ENV GOPATH="/home/jenkins/go"
 ENV PATH="${PATH}:${GOPATH}/bin"
+
+# install some python deps
+RUN pip install fabric
 
 # install golang tasks
 RUN cd /home/jenkins && wget https://taskfile.dev/install.sh && chmod +x install.sh && ./install.sh && rm install.sh
