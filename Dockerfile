@@ -64,6 +64,7 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 
 # install some python deps
 RUN pip install fabric
+RUN pip install mkdocs
 
 # install golang tasks
 RUN cd /home/jenkins && wget https://taskfile.dev/install.sh && chmod +x install.sh && ./install.sh && rm install.sh
