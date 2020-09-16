@@ -62,6 +62,9 @@ ENV PATH="${PATH}:${GOPATH}/bin"
 # JDK
 ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 
+# Setup PATH for python scripts
+ENV PATH="${PATH}:/home/jenkins/.local/bin"
+
 # install some python deps
 RUN pip install fabric
 RUN pip install mkdocs
