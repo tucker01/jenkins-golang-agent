@@ -73,3 +73,5 @@ RUN pip install mkdocs-material
 # install golang tasks
 RUN cd /home/jenkins && wget https://taskfile.dev/install.sh && chmod +x install.sh && ./install.sh && rm install.sh
 RUN go get -u github.com/jstemmer/go-junit-report
+
+RUN echo 'alias python="python3"' >> ~/.bashrc
