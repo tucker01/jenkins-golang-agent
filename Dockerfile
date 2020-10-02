@@ -51,6 +51,8 @@ RUN apt-get -y update &&\
 # install golang
 RUN cd ${HOME} && wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
 
+RUN cp /usr/bin/python3 /usr/bin/python
+
 # switch to jenkins 
 USER jenkins 
 
@@ -73,5 +75,3 @@ RUN pip install mkdocs-material
 # install golang tasks
 RUN cd /home/jenkins && wget https://taskfile.dev/install.sh && chmod +x install.sh && ./install.sh && rm install.sh
 RUN go get -u github.com/jstemmer/go-junit-report
-
-RUN echo 'alias python="python3"' >> ~/.bashrc
