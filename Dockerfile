@@ -46,12 +46,19 @@ RUN apt-get -y update &&\
   sudo apt-get -y install curl &&\
   sudo apt-get -y install git &&\
   sudo apt-get -y install python3.8 &&\
-  sudo apt-get -y install python3-pip
+  sudo apt-get -y install python3-pip &&\
+  sudo apt-get -y install unzip
 
 # install golang
 RUN cd ${HOME} && wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
 
 RUN cp /usr/bin/python3 /usr/bin/python
+
+# install sonar-scanner
+RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216-linux.zip &&\
+  unzip sonar-scanner-cli-4.5.0.2216-linux.zip &&\
+  cp sonar-scanner-4.5.0.2216-linux/bin/sonar-scanner /usr/bin &&\
+  chmod +x /usr/bin/sonar-scanner
 
 # switch to jenkins 
 USER jenkins 
