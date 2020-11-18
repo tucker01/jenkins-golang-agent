@@ -47,7 +47,8 @@ RUN apt-get -y update &&\
   sudo apt-get -y install git &&\
   sudo apt-get -y install python3.8 &&\
   sudo apt-get -y install python3-pip &&\
-  sudo apt-get -y install unzip
+  sudo apt-get -y install unzip &&\
+  sudo apt-get -y install zip
 
 # install golang
 RUN cd ${HOME} && wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
