@@ -48,7 +48,9 @@ RUN apt-get -y update &&\
   sudo apt-get -y install python3.8 &&\
   sudo apt-get -y install python3-pip &&\
   sudo apt-get -y install unzip &&\
-  sudo apt-get -y install zip
+  sudo apt-get -y install zip &&\
+  sudo apt-get -y install libcurl4-openssl-dev &&\
+  sudo apt-get -y install libssl-dev
 
 # install golang
 RUN cd ${HOME} && wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
@@ -62,11 +64,17 @@ RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-s
   chmod +x /usr/bin/sonar-scanner
 
 # Install mono for codesign
-RUN sudo apt -y install gnupg ca-certificates &&\
- sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF &&\
- echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list &&\
- sudo apt update &&\
- sudo apt -y install mono-devel
+# RUN sudo apt -y install gnupg ca-certificates &&\
+#  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF &&\
+#  echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list &&\
+#  sudo apt update &&\
+#  sudo apt -y install mono-devel
+
+# install osslcodesign
+RUN curl -LJO https://github.com/mtrojnar/osslsigncode/releases/download/2.1/osslsigncode-2.1.0.tar.gz &&\
+  tar -xzvf osslsigncode-2.1.0.tar.gz &&\
+  cd osslsigncode-2.1.0 &&\
+  ./configure && make && make install
 
 # switch to jenkins 
 USER jenkins 
