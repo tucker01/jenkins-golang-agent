@@ -94,6 +94,7 @@ ENV PATH="${PATH}:/home/jenkins/.local/bin"
 RUN pip install fabric
 RUN pip install mkdocs
 RUN pip install mkdocs-material
+RUN pip install PyGithub
 
 # install golang tasks
 RUN cd /home/jenkins && wget https://taskfile.dev/install.sh && chmod +x install.sh && ./install.sh && rm install.sh
