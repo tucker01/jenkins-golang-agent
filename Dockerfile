@@ -56,6 +56,7 @@ RUN apt-get -y update &&\
 RUN cd ${HOME} && wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
 
 RUN cp /usr/bin/python3 /usr/bin/python
+RUN cp /usr/bin/pip3 /usr/bin/pip
 
 # install sonar-scanner
 RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216-linux.zip &&\
