@@ -48,6 +48,7 @@ RUN apt-get -y update &&\
   sudo apt-get -y install python3-pip &&\
   sudo apt-get -y install python3.8 &&\
   sudo apt-get -y install python3-venv &&\
+  sudo apt-get -y install python3.8-venv &&\
   sudo apt-get -y install unzip &&\
   sudo apt-get -y install zip &&\
   sudo apt-get -y install libcurl4-openssl-dev &&\
