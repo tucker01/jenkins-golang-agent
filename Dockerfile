@@ -1,5 +1,5 @@
 #Docker file for jenkins agent image
-FROM ubuntu:groovy
+FROM ubuntu:bionic
 
 USER root
 
@@ -91,10 +91,10 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 ENV PATH="${PATH}:/home/jenkins/.local/bin"
 
 # install some python deps
-RUN pip install fabric
-RUN pip install mkdocs
-RUN pip install mkdocs-material
-RUN pip install PyGithub
+RUN pip3 install fabric
+RUN pip3 install mkdocs
+RUN pip3 install mkdocs-material
+RUN pip3 install PyGithub
 
 # install golang tasks
 RUN cd /home/jenkins && wget https://taskfile.dev/install.sh && chmod +x install.sh && ./install.sh && rm install.sh
