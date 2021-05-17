@@ -71,6 +71,14 @@ RUN cp /usr/bin/pip3 /usr/bin/pip
 RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash - &&\
   sudo apt-get install -y nodejs
 
+# install golang tasks
+RUN cd ${HOME} &&\
+  wget https://github.com/go-task/task/releases/download/v2.8.1/task_linux_amd64.tar.gz &&\
+  echo "c7ca69ef85a6db25b04f90d417ec7e9c537518d7023c2a563ae4d1e34b841aba task_linux_amd64.tar.gz" | sha256sum -c &&\
+  tar -xzf task_linux_amd64.tar.gz &&\
+  cp task /usr/bin/task &&\
+  chmod +x /usr/bin/task
+
 # switch to jenkins 
 USER jenkins 
 
@@ -85,19 +93,13 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 # Setup PATH for python scripts
 ENV PATH="${PATH}:/home/jenkins/.local/bin"
 
-# install some python deps
+# install some python deps - the upgrade is necessary because fabric installs, the python/pip
+# guidance is to upgrade pip ...
+RUN pip3 install --upgrade pip
 RUN pip3 install mkdocs==1.1.2
 RUN pip3 install mkdocs-material==6.2.6
 RUN pip3 install PyGithub==1.54.1
 RUN pip3 install fabric==2.6.0
-
-# install golang tasks
-RUN cd /home/jenkins &&\
-  wget https://github.com/go-task/task/releases/download/v2.8.1/task_linux_amd64.tar.gz &&\
-  echo "c7ca69ef85a6db25b04f90d417ec7e9c537518d7023c2a563ae4d1e34b841aba task_linux_amd64.tar.gz" | sha256sum -c &&\
-  tar -xzf task_linux_amd64.tar.gz &&\
-  cp task /usr/bin/task &&\
-  chmod +x /usr/bin/task
 
 # install junit report
 RUN go get -u github.com/jstemmer/go-junit-report
