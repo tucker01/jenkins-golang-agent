@@ -1,4 +1,4 @@
-#Docker file for jenkins agent image
+# Docker file for jenkins agent image
 FROM ubuntu:bionic
 
 USER root
@@ -57,30 +57,13 @@ RUN apt-get -y update &&\
   sudo apt-get -y install libssl-dev
 
 # install golang
-RUN cd ${HOME} && wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
+RUN cd ${HOME} && wget https://golang.org/dl/go1.12.linux-amd64.tar.gz &&\
+  echo "750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13 go1.12.linux-amd64.tar.gz" | sha256sum -c &&\
+  tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
 
 RUN cp /usr/bin/python3.8 /usr/bin/python
 RUN cp /usr/bin/python3.8 /usr/bin/python3
 RUN cp /usr/bin/pip3 /usr/bin/pip
-
-# install sonar-scanner
-RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216-linux.zip &&\
-  unzip sonar-scanner-cli-4.5.0.2216-linux.zip &&\
-  cp sonar-scanner-4.5.0.2216-linux/bin/sonar-scanner /usr/bin &&\
-  chmod +x /usr/bin/sonar-scanner
-
-# Install mono for codesign
-# RUN sudo apt -y install gnupg ca-certificates &&\
-#  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF &&\
-#  echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list &&\
-#  sudo apt update &&\
-#  sudo apt -y install mono-devel
-
-# install osslcodesign
-RUN curl -LJO https://github.com/mtrojnar/osslsigncode/releases/download/2.1/osslsigncode-2.1.0.tar.gz &&\
-  tar -xzvf osslsigncode-2.1.0.tar.gz &&\
-  cd osslsigncode-2.1.0 &&\
-  ./configure && make && make install
 
 # switch to jenkins 
 USER jenkins 
@@ -97,11 +80,18 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 ENV PATH="${PATH}:/home/jenkins/.local/bin"
 
 # install some python deps
-RUN pip3 install fabric
-RUN pip3 install mkdocs
-RUN pip3 install mkdocs-material
-RUN pip3 install PyGithub
+RUN pip3 install fabric==2.6.0
+RUN pip3 install mkdocs==1.1.2
+RUN pip3 install mkdocs-material==6.2.6
+RUN pip3 install PyGithub==1.54.1
 
 # install golang tasks
-RUN cd /home/jenkins && wget https://taskfile.dev/install.sh && chmod +x install.sh && ./install.sh && rm install.sh
+RUN cd /home/jenkins &&\
+  wget https://github.com/go-task/task/releases/download/v2.8.1/task_linux_amd64.tar.gz &&\
+  echo "c7ca69ef85a6db25b04f90d417ec7e9c537518d7023c2a563ae4d1e34b841aba task_linux_amd64.tar.gz" | sha256sum -c &&\
+  tar -xzf task_linux_amd64.tar.gz &&\
+  cp task /usr/bin/task &&\
+  chmod +x /usr/bin/task
+
+# install junit report
 RUN go get -u github.com/jstemmer/go-junit-report
