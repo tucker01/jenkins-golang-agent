@@ -61,9 +61,18 @@ RUN cd ${HOME} && wget https://golang.org/dl/go1.12.linux-amd64.tar.gz &&\
   echo "750a07fef8579ae4839458701f4df690e0b20b8bcce33b437e4df89c451b6f13 go1.12.linux-amd64.tar.gz" | sha256sum -c &&\
   tar -C /usr/local -xzf go1.12.linux-amd64.tar.gz
 
+# update pip because some dependencies will fail otherwise
+RUN pip3 install --upgrade pip
+
 RUN cp /usr/bin/python3.8 /usr/bin/python
 RUN cp /usr/bin/python3.8 /usr/bin/python3
 RUN cp /usr/bin/pip3 /usr/bin/pip
+
+# install nodejs
+# https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
+# https://github.com/nodesource/distributions/blob/master/README.md#debinstall
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash - &&\
+  sudo apt-get install -y nodejs
 
 # switch to jenkins 
 USER jenkins 
