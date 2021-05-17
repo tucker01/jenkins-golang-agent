@@ -68,7 +68,7 @@ RUN cp /usr/bin/pip3 /usr/bin/pip
 # install nodejs
 # https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
 # https://github.com/nodesource/distributions/blob/master/README.md#debinstall
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash - &&\
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - &&\
   sudo apt-get install -y nodejs
 
 # install golang tasks
