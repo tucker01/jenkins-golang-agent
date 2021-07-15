@@ -100,6 +100,7 @@ RUN pip3 install mkdocs==1.1.2
 RUN pip3 install mkdocs-material==6.2.6
 RUN pip3 install PyGithub==1.54.1
 RUN pip3 install fabric==2.6.0
+RUN pip3 install blackduck==1.0.4
 
 # install junit report
 RUN go get -u github.com/jstemmer/go-junit-report
