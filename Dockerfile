@@ -24,15 +24,8 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# Install JRE 8 
-RUN apt-get -q update &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends software-properties-common &&\
-    apt-get -q update &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends openjdk-8-jre-headless &&\
-    apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
-
-# Install JDK 8
-RUN apt-get -q update && apt-get install -y openjdk-8-jdk 
+# Install JDK 11
+RUN apt-get -q update && apt-get install -y openjdk-11-jdk-headless 
 
 # Create jenkins user
 RUN sudo useradd jenkins --shell /bin/bash --create-home \
