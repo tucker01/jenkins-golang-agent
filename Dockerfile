@@ -81,7 +81,7 @@ ENV GOPATH="/home/jenkins/go"
 ENV PATH="${PATH}:${GOPATH}/bin"
 
 # JDK
-ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 
 # Setup PATH for python scripts
 ENV PATH="${PATH}:/home/jenkins/.local/bin"
